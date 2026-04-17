@@ -7,10 +7,18 @@ public:
     Song(unsigned int SongId, const std::string& ArtistName, unsigned int Duration, const std::string& SongTitle);
 
     bool isInFavList() const;
+
+
     unsigned int getTimeListened() const;
+    std::string getSongTitle() const;
+    unsigned int getSongId() const;
+
+
 
     void setIsInFavList(bool IsInFavList);
     void setTimeListened(unsigned int TimeListened);
+
+
 
 private:
     unsigned int song_id;

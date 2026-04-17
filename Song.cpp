@@ -25,3 +25,11 @@ void Song::setIsInFavList(bool IsInFavList) {
 void Song::setTimeListened(unsigned int TimeListened) {
     time_listened = TimeListened;
 }
+
+std::string Song::getTitle() cosnt{
+    return std::string song_title;
+
+}
+unsigned int Song::getSongId() const {
+    unsigned int song_id;
+}
