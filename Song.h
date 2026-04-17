@@ -3,22 +3,17 @@
 
 class Song {
 public:
-    Song();
     Song(unsigned int SongId, const std::string& ArtistName, unsigned int Duration, const std::string& SongTitle);
 
-    bool isInFavList() const;
-
-
-    unsigned int getTimeListened() const;
-    std::string getSongTitle() const;
     unsigned int getSongId() const;
-
-
+    std::string getArtistName() const;
+    unsigned int getDuration() const;
+    std::string getSongTitle() const;
+    bool isInFavList() const;
+    unsigned int getTimeListened() const;
 
     void setIsInFavList(bool IsInFavList);
     void setTimeListened(unsigned int TimeListened);
-
-
 
 private:
     unsigned int song_id;

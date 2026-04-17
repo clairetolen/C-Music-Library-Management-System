@@ -1,8 +1,5 @@
 #include "Song.h"
 
-Song::Song() {
-}
-
 Song::Song(unsigned int SongId, const std::string& ArtistName, unsigned int Duration, const std::string& SongTitle)
     : song_id(SongId),
       artist_name(ArtistName),
@@ -26,10 +23,18 @@ void Song::setTimeListened(unsigned int TimeListened) {
     time_listened = TimeListened;
 }
 
-std::string Song::getTitle() cosnt{
-    return std::string song_title;
-
+std::string Song::getSongTitle() const {
+    return song_title;
 }
+
 unsigned int Song::getSongId() const {
-    unsigned int song_id;
+    return song_id;
+}
+
+unsigned int Song::getDuration() const {
+    return duration;
+}
+
+std::string Song::getArtistName() const {
+    return artist_name;
 }
