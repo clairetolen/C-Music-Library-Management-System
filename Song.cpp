@@ -1,40 +1,46 @@
 #include "Song.h"
 
+Song::Song() : songId(-1), artistName(""), duration(0), songTitle(""), favorite(false),
+               timeListened(0) {
+}
+
 Song::Song(unsigned int SongId, const std::string& ArtistName, unsigned int Duration, const std::string& SongTitle)
-    : song_id(SongId),
-      artist_name(ArtistName),
+    : songId(SongId),
+      artistName(ArtistName),
       duration(Duration),
-      song_title(SongTitle) {
+      songTitle(SongTitle),
+      favorite(false),
+      timeListened(0) {
 }
 
-bool Song::isInFavList() const {
-    return is_in_fav_list;
+int Song::getSongId() const {
+    return songId;
 }
 
-unsigned int Song::getTimeListened() const {
-    return time_listened;
-}
-
-void Song::setIsInFavList(bool IsInFavList) {
-    is_in_fav_list = IsInFavList;
-}
-
-void Song::setTimeListened(unsigned int TimeListened) {
-    time_listened = TimeListened;
-}
-
-std::string Song::getSongTitle() const {
-    return song_title;
-}
-
-unsigned int Song::getSongId() const {
-    return song_id;
+std::string Song::getArtistName() const {
+    return artistName;
 }
 
 unsigned int Song::getDuration() const {
     return duration;
 }
 
-std::string Song::getArtistName() const {
-    return artist_name;
+std::string Song::getSongTitle() const {
+    return songTitle;
+}
+
+bool Song::isFavorite() const {
+    return favorite;
+}
+
+void Song::setFavorite(bool Favorite) {
+    favorite = Favorite;
+}
+
+unsigned int Song::getTimeListened() const {
+    return timeListened;
+}
+
+void Song::setTimeListened(unsigned int TimeListened) {
+    timeListened = TimeListened;
 }
