@@ -11,7 +11,7 @@ BU_USERID =
 # CP settings (change this as per the CP you are working on)
 # add name of the exe file
 CP_NUMBER = 5
-EXE = tmp_main # TODO:
+EXE = listen_up
 
 # Compiler
 CXX = g++
