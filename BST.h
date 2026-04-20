@@ -29,5 +29,5 @@ private:
 
     void BSTInsertNode(SongNode* node);
     void BSTRemoveNode(SongNode* node);
-    SongNode* BSTSearchKey(Song* song) const;
+    SongNode* BSTSearchKey(std::string title) const;
 };
