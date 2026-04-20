@@ -1,4 +1,5 @@
 #pragma once
+#include "BST.h"
 #include "Song.h"
 
 class SongList {
@@ -7,4 +8,5 @@ public:
 
 private:
     unsigned int size = 0;
+    std::vector <Song> songs; ///stores all the song objects
 };
