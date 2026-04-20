@@ -16,12 +16,13 @@ public:
 private:
     class SongNode {
     public:
-        SongNode(Song* song) : data(song), left(nullptr), right(nullptr) {
+        SongNode(Song* song) : data(song), left(nullptr), right(nullptr), parent(nullptr) {
         }
 
         Song* data;
         SongNode* left;
         SongNode* right;
+        SongNode* parent;
     };
 
     SongNode* root;
