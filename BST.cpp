@@ -10,56 +10,54 @@ void BST::BSTInsertKey(Song* song) {
 
 void BST::BSTInsertNode(SongNode* node) {
     //check if root =null ptr --> insert at root
-    
-    
-    if (root == nullptr){
+
+    if (root == nullptr) {
         root = node;
-        root -> parent = nullptr;
+        root->parent = nullptr;
         size++;
         return;
     }
     SongNode* curr = root;
 
-    if (BSTSearchKey(node->data->getSongTitle()) != nullptr){
+    if (BSTSearchKey(node->data->getSongTitle()) != nullptr) {
         //break
-        std::cout << "Song already in song List"<< std::endl;
+        std::cout << "Song already in song List" << std::endl;
         return;
     }
-    while (curr != nullptr){
-    // some kind of loop 
-    //check if curr node > node (being inserted)
-    if (node->data->getSongTitle() < curr->data->getSongTitle()){
-        //go left by changing curr
-      if (curr -> left == nullptr){
-        curr -> left = node;
-        node -> parent = curr;
-        size++;
-        return;
-      }else {
-        curr = curr->left;
-
-      }
-
-    }else if (node->data->getSongTitle() > curr->data->getSongTitle()){
-        //go right 
-        if (curr -> right == nullptr){
-            curr -> right = node;
-            node-> parent = curr;
-            size++;
-            return;
-        }else{
-        curr = curr->right;
+    while (curr != nullptr) {
+        // some kind of loop
+        //check if curr node > node (being inserted)
+        if (node->data->getSongTitle() < curr->data->getSongTitle()) {
+            //go left by changing curr
+            if (curr->left == nullptr) {
+                curr->left = node;
+                node->parent = curr;
+                size++;
+                return;
+            }
+            else {
+                curr = curr->left;
+            }
+        }
+        else if (node->data->getSongTitle() > curr->data->getSongTitle()) {
+            //go right
+            if (curr->right == nullptr) {
+                curr->right = node;
+                node->parent = curr;
+                size++;
+                return;
+            }
+            else {
+                curr = curr->right;
+            }
         }
     }
-    }
-
-
 }
 
 void BST::BSTRemoveKey(Song* song) {
     SongNode* key = BSTSearchKey(song->getSongTitle());
-    if (key == nullptr){
-        std::cout<<"";
+    if (key == nullptr) {
+        std::cout << "";
         return;
     }
     BSTRemoveNode(key);
@@ -67,65 +65,76 @@ void BST::BSTRemoveKey(Song* song) {
 }
 
 void BST::BSTRemoveNode(SongNode* node) {
-    if(node == nullptr) return;
-    if(node->left == nullptr && node->right == nullptr){ // leaf node
-        if (node==root){
+    if (node == nullptr) return;
+    if (node->left == nullptr && node->right == nullptr) {
+        // leaf node
+        if (node == root) {
             root = nullptr;
         }
-        else if(node->parent->left == node) {  
+        else if (node->parent->left == node) {
             node->parent->left = nullptr;
-        }else{
+        }
+        else {
             node->parent->right = nullptr;
         }
-        delete node; 
+        delete node;
     }
-    else if (node->left == nullptr ^ node->right == nullptr){ // 1 child
-        if(node==root){
-            if(node->right!=nullptr){
+    else if (node->left == nullptr ^ node->right == nullptr) {
+        // 1 child
+        if (node == root) {
+            if (node->right != nullptr) {
                 node->right->parent = nullptr;
                 root = node->right;
-            }else{
-                node->left->parent =nullptr;
-                root= node->left;
             }
-        }else{
-            if(node->right!=nullptr){
+            else {
+                node->left->parent = nullptr;
+                root = node->left;
+            }
+        }
+        else {
+            if (node->right != nullptr) {
                 node->right->parent = node->parent;
-                if(node->parent->right==node){
+                if (node->parent->right == node) {
                     node->parent->right = node->right;
-                }else{
+                }
+                else {
                     node->parent->left = node->right;
                 }
-            }else{
+            }
+            else {
                 node->left->parent = node->parent;
-                if(node->parent->right==node){
+                if (node->parent->right == node) {
                     node->parent->right = node->left;
-                }else{
+                }
+                else {
                     node->parent->left = node->left;
                 }
             }
         }
         delete node;
     }
-    else{ // 2 childeren 
-
+    else {
+        // 2 children
     }
 }
 
 SongNode* BST::BSTSearchKey(const std::string& title) const {
     SongNode* curr = root;
-    while (curr != nullptr){
-     
-        if (title == curr ->data->getSongTitle()){
-                return curr;
-        }else if (title < curr->data->getSongTitle()){
+    while (curr != nullptr) {
+        if (title == curr->data->getSongTitle()) {
+            return curr;
+        }
+        if (title < curr->data->getSongTitle()) {
             curr = curr->left;
-
-        }else if (title > curr->data->getSongTitle()){
+        }
+        else {
             curr = curr->right;
         }
-//if not found return nullptr
-       
+    }
+    // if not found return nullptr
+    return nullptr;
 }
-return nullptr;
+
+bool BST::BSTContainsKey(const std::string& title) const {
+    return BSTSearchKey(title) != nullptr;
 }

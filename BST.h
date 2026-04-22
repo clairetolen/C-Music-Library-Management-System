@@ -12,6 +12,7 @@ public:
     // recursively or iteratively
     void BSTInsertKey(Song* song);
     void BSTRemoveKey(Song* song);
+    bool BSTContainsKey(const std::string& title) const;
 
 private:
     class SongNode {
@@ -30,5 +31,5 @@ private:
 
     void BSTInsertNode(SongNode* node);
     void BSTRemoveNode(SongNode* node);
-    SongNode* BSTSearchKey(std::string title) const;
+    SongNode* BSTSearchKey(const std::string& title) const;
 };
