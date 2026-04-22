@@ -4,7 +4,7 @@
 class Song {
 public:
     Song();
-    Song(unsigned int SongId, const std::string& ArtistName, unsigned int Duration, const std::string& SongTitle);
+    Song(unsigned int songId, const std::string& artistName, unsigned int duration, const std::string& songTitle);
 
     int getSongId() const;
     std::string getArtistName() const;
@@ -13,8 +13,10 @@ public:
     bool isFavorite() const;
     unsigned int getTimeListened() const;
 
-    void setFavorite(bool Favorite);
-    void setTimeListened(unsigned int TimeListened);
+    void setFavorite(bool isFav);
+    void setHeapIndex(int index);
+
+    void incListenTime(unsigned int seconds);
 
 private:
     int songId;
@@ -23,4 +25,8 @@ private:
     std::string songTitle;
     bool favorite;
     unsigned int timeListened;
+
+    class DLLNode;
+    int heapIndex;
+    DLLNode* dllNodePtr;
 };

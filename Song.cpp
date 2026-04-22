@@ -1,16 +1,18 @@
 #include "Song.h"
 
 Song::Song() : songId(-1), artistName(""), duration(0), songTitle(""), favorite(false),
-               timeListened(0) {
+               timeListened(0), heapIndex(-1), dllNodePtr(nullptr) {
 }
 
-Song::Song(unsigned int SongId, const std::string& ArtistName, unsigned int Duration, const std::string& SongTitle)
-    : songId(SongId),
-      artistName(ArtistName),
-      duration(Duration),
-      songTitle(SongTitle),
+Song::Song(unsigned int songId, const std::string& artistName, unsigned int duration, const std::string& songTitle)
+    : songId(songId),
+      artistName(artistName),
+      duration(duration),
+      songTitle(songTitle),
       favorite(false),
-      timeListened(0) {
+      timeListened(0),
+      heapIndex(-1),
+      dllNodePtr(nullptr) {
 }
 
 int Song::getSongId() const {
@@ -41,6 +43,10 @@ unsigned int Song::getTimeListened() const {
     return timeListened;
 }
 
-void Song::setTimeListened(unsigned int TimeListened) {
-    timeListened = TimeListened;
+void Song::incListenTime(unsigned int seconds) {
+    timeListened += seconds;
+}
+
+void Song::setHeapIndex(int index) {
+    heapIndex = index;
 }
