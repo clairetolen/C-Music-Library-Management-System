@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+class DLLNode;
 
 class Song {
 public:
@@ -12,6 +13,7 @@ public:
     std::string getSongTitle() const;
     bool isFavorite() const;
     unsigned int getTimeListened() const;
+    int getHeapIndex() const;
 
     void setFavorite(bool isFav);
     void setHeapIndex(int index);
@@ -26,7 +28,6 @@ private:
     bool favorite;
     unsigned int timeListened;
 
-    class DLLNode;
     int heapIndex;
     DLLNode* dllNodePtr;
 };

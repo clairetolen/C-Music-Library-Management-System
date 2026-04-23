@@ -50,3 +50,7 @@ void Song::incListenTime(unsigned int seconds) {
 void Song::setHeapIndex(int index) {
     heapIndex = index;
 }
+
+int Song::getHeapIndex() const {
+    return heapIndex;
+}
