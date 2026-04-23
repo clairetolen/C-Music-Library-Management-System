@@ -8,13 +8,14 @@ public:
 
     void insert(Song* song);
     void remove(Song* song);
+    void update(Song* song);
     Song* extractMax();
 
 private:
-    unsigned int heapSize;
     std::vector<Song*> songs;
 
-    void percolateUp(unsigned int nodeIndex);
-    void percolateDown(unsigned int nodeIndex);
-    void heapInsert();
+    void percolateUp(int index);
+    void percolateDown(int index);
+    void swap(int index1, int index2);
+    bool isIndexInRange(int index) const;
 };
