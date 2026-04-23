@@ -4,10 +4,11 @@
 class DLL {
 public:
     DLL();
+    ~DLL();
 
     void insert(Song* song); // Insert In Order
-    void remove();
-    void traverse();
+    void remove(Song* song);
+    void printAllSongs();
 
 private:
     class DLLNode {
@@ -20,7 +21,6 @@ private:
     };
 
     DLLNode* head;
-    DLLNode* tail;
 
     friend class Song;
 };
