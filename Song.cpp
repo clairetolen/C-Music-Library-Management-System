@@ -54,3 +54,11 @@ void Song::setHeapIndex(int index) {
 int Song::getHeapIndex() const {
     return heapIndex;
 }
+
+void Song::setDllNodePtr(DLLNode* ptr) {
+    dllNodePtr = ptr;
+}
+
+DLLNode* Song::getDllNodePtr() const {
+    return dllNodePtr;
+}

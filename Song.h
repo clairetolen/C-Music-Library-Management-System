@@ -14,9 +14,11 @@ public:
     bool isFavorite() const;
     unsigned int getTimeListened() const;
     int getHeapIndex() const;
+    DLLNode* getDllNodePtr() const;
 
     void setFavorite(bool isFav);
     void setHeapIndex(int index);
+    void setDllNodePtr(DLLNode* ptr);
 
     void incListenTime(unsigned int seconds);
 
