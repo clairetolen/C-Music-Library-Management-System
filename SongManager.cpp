@@ -1,9 +1,8 @@
 #include "SongManager.h"
 
-SongManager::SongManager() : songBST(), songMH(), songDLL() {
+SongManager::SongManager() {
 }
 
-// TODO: add check input formats
 bool SongManager::song(unsigned int songId, const std::string& artistName, unsigned int duration,
                        const std::string& songTitle) {
     if (songBST.BSTContainsKey(songTitle)) { return false; }
@@ -17,11 +16,10 @@ bool SongManager::song(unsigned int songId, const std::string& artistName, unsig
 // TODO:
 bool SongManager::listen(const std::string& songTitle, unsigned int seconds) {
     if (!songBST.BSTContainsKey(songTitle)) { return false; }
-
+    // songBST.getKey()->incListenTime(seconds);
     return true;
 }
 
-// TODO:
 void SongManager::show_listen_time() {
     songDLL.printAllSongs();
 }
@@ -32,8 +30,21 @@ bool SongManager::favorite() {
 
 // TODO:
 bool SongManager::remove(const std::string& songTitle) {
+    if (songBST.BSTContainsKey(songTitle)) { return false; }
+    /*
+    Song* key = songBST.getKey(songTitle);
+    songBST.remove(songTitle);
+    songMH.remove(key);
+    songDLL.remove(key);
+    */
+    return true;
 }
 
-// TODO:
+// TODO: free all memory, destroy BST, MH, DLL
 void SongManager::quit() {
+    /*
+    ~songMH();
+    ~songBST();
+    ~songDLL();
+    */
 }
