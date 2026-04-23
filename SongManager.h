@@ -5,9 +5,9 @@
 #include "MH.h"
 #include "DLL.h"
 
-class SongList {
+class SongManager {
 public:
-    SongList();
+    SongManager();
 
     bool song(unsigned int songId, const std::string& artistName, unsigned int duration, const std::string& songTitle);
     bool listen(const std::string& songTitle, unsigned int seconds);
