@@ -1,26 +1,20 @@
 #pragma once
 #include "Song.h"
+#include "DLLNode.h"
 
 class DLL {
 public:
     DLL();
     ~DLL();
+    // no copying allowed
+    DLL(const DLL& other) = delete;
+    DLL& operator=(const DLL& other) = delete;
 
-    void insert(Song* song); // Insert In Order
-    void remove(Song* song);
-    void printAllSongs();
+    bool insert(Song* song); // Insert In Order
+    bool remove(Song* song);
+    void printAllSongs() const;
 
 private:
-    class DLLNode {
-    public:
-        DLLNode(Song* song) : data(song), prev(nullptr), next(nullptr) {
-        }
-        Song* data;
-        DLLNode* prev;
-        DLLNode* next;
-    };
-
     DLLNode* head;
-
-    friend class Song;
+    DLLNode* tail;
 };
