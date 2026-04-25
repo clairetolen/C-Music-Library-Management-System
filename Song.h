@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-class DLLNode;
+#include "DLLNode.h"
 
 class Song {
 public:
