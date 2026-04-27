@@ -25,8 +25,8 @@ bool DLL::insert(Song* song) {
         song->setDllNodePtr(node);
         head = node;
         tail = node;
-        std::cout << "new song " << song->getSongId() << " " << song->getSongTitle() << " by " << song->
-            getArtistName() << " " << song->getDuration() / 60 << ":" << song->getDuration() % 60 << std::endl;
+        std::cout << "New song " << song->getSongId() << " " << song->getSongTitle() << " by " << song->
+            getArtistName() << " " << song->getDuration() / 60 << ":" << song->getDuration() % 60 << "." << std::endl;
         return true;
     }
 
@@ -37,8 +37,8 @@ bool DLL::insert(Song* song) {
         node->prev = tail;
         tail->next = node;
         tail = node;
-        std::cout << "new song " << song->getSongId() << " " << song->getSongTitle() << " by " << song->
-            getArtistName() << " " << song->getDuration() / 60 << ":" << song->getDuration() % 60 << std::endl;
+        std::cout << "New song " << song->getSongId() << " " << song->getSongTitle() << " by " << song->
+            getArtistName() << " " << song->getDuration() / 60 << ":" << song->getDuration() % 60 << "." << std::endl;
         return true;
     }
 
@@ -46,9 +46,9 @@ bool DLL::insert(Song* song) {
     while (current != nullptr) {
         // case 3: duplicate id
         if (song->getSongId() == current->data->getSongId()) {
-            std::cout << "song id " << current->data->getSongId() << " already used for " << current->data->
+            std::cout << "Song id " << current->data->getSongId() << " already used for " << current->data->
                 getSongTitle() <<
-                " by " << current->data->getArtistName() << std::endl;
+                " by " << current->data->getArtistName() << "." << std::endl;
             return false;
         }
         // case 4: found the spot to insert
@@ -67,8 +67,9 @@ bool DLL::insert(Song* song) {
             }
             current->prev = node;
 
-            std::cout << "new song " << song->getSongId() << " " << song->getSongTitle() << " by " << song->
-                getArtistName() << " " << song->getDuration() / 60 << ":" << song->getDuration() % 60 << std::endl;
+            std::cout << "New song " << song->getSongId() << " " << song->getSongTitle() << " by " << song->
+                getArtistName() << " " << song->getDuration() / 60 << ":" << song->getDuration() % 60 << "." <<
+                std::endl;
             return true;
         }
         current = current->next;
@@ -84,7 +85,8 @@ bool DLL::remove(Song* song) {
 
     if (nodeToDelete == nullptr) { return false; }
 
-    std::cout << "Removed song " << song->getSongId() << " " << song->getSongTitle() << " from your songs" << std::endl;
+    std::cout << "Removed song " << song->getSongId() << " " << song->getSongTitle() << " from your songs." <<
+        std::endl;
 
     DLLNode* prevNode = nodeToDelete->prev;
     DLLNode* nextNode = nodeToDelete->next;
@@ -114,7 +116,7 @@ void DLL::printAllSongs() const {
     while (current != nullptr) {
         std::cout << current->data->getSongId() << " " <<
             current->data->getSongTitle() << " has been listened to for " <<
-            current->data->getDuration() << " seconds"
+            current->data->getDuration() << " seconds."
             << std::endl;
         current = current->next;
     }
