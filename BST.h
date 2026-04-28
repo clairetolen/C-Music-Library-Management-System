@@ -5,11 +5,10 @@ class BST {
 public:
     BST();
 
-    // ~BST();
-    // BST(const BST& other);
-    // BST& operator=(const BST& other);
+    ~BST();
+    BST(const BST& other) = delete;
+    BST& operator=(const BST& other) = delete;
 
-    // recursively or iteratively
     void BSTInsertKey(Song* song);
     void BSTRemoveKey(Song* song);
     bool BSTContainsKey(const std::string& title) const;
@@ -33,4 +32,5 @@ private:
     void BSTInsertNode(SongNode* node);
     void BSTRemoveNode(SongNode* node);
     SongNode* BSTSearchKey(const std::string& title) const;
+    void BSTDeleteTree(SongNode* node);
 };

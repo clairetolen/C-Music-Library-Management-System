@@ -3,6 +3,10 @@
 BST::BST() : root(nullptr), size(0) {
 }
 
+BST::~BST() {
+    BSTDeleteTree(root);
+}
+
 void BST::BSTInsertKey(Song* song) {
     SongNode* key = new SongNode(song);
     BSTInsertNode(key);
@@ -151,4 +155,11 @@ Song* BST::BSTGetKey(const std::string& title) const {
     else {
         return curr->data;
     }
+}
+
+void BST::BSTDeleteTree(SongNode* node) {
+    if (node == nullptr) return;
+    BSTDeleteTree(node->left);
+    BSTDeleteTree(node->right);
+    delete node;
 }
