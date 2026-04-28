@@ -19,7 +19,8 @@ int main() {
 
     // TODO: test the following codes and remove this
     while (!quitStatus) {
-        std::cout << ": ";
+        std::cout << std::endl;
+        std::cout << "> ";
 
         if (fileStream.is_open()) {
             if (fileStream.eof()) {
@@ -30,6 +31,8 @@ int main() {
         else {
             std::getline(std::cin, lineString);
         }
+
+        std::cout << lineString << std::endl;
 
         auto strList = parser(lineString);
 
@@ -159,6 +162,7 @@ bool isValidUInt(const std::string& input) {
         }
     }
     catch (std::exception& e) {
+        // TODO: remove error message
         std::cout << e.what() << std::endl;
         return false;
     }

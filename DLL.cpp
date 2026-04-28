@@ -26,7 +26,8 @@ bool DLL::insert(Song* song) {
         head = node;
         tail = node;
         std::cout << "New song " << song->getSongId() << " " << song->getSongTitle() << " by " << song->
-            getArtistName() << " " << song->getDuration() / 60 << ":" << song->getDuration() % 60 << "." << std::endl;
+            getArtistName() << " " << song->getDuration() / 60 << ":" <<
+            ((song->getDuration() % 60 < 10) ? "0" : "") << song->getDuration() % 60 << "." << std::endl;
         return true;
     }
 
@@ -38,7 +39,8 @@ bool DLL::insert(Song* song) {
         tail->next = node;
         tail = node;
         std::cout << "New song " << song->getSongId() << " " << song->getSongTitle() << " by " << song->
-            getArtistName() << " " << song->getDuration() / 60 << ":" << song->getDuration() % 60 << "." << std::endl;
+            getArtistName() << " " << song->getDuration() / 60 << ":" <<
+            ((song->getDuration() % 60 < 10) ? "0" : "") << song->getDuration() % 60 << "." << std::endl;
         return true;
     }
 
@@ -68,8 +70,8 @@ bool DLL::insert(Song* song) {
             current->prev = node;
 
             std::cout << "New song " << song->getSongId() << " " << song->getSongTitle() << " by " << song->
-                getArtistName() << " " << song->getDuration() / 60 << ":" << song->getDuration() % 60 << "." <<
-                std::endl;
+                getArtistName() << " " << song->getDuration() / 60 << ":" <<
+                ((song->getDuration() % 60 < 10) ? "0" : "") << song->getDuration() % 60 << "." << std::endl;
             return true;
         }
         current = current->next;

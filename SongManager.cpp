@@ -23,7 +23,7 @@ bool SongManager::listen(const std::string& songTitle, unsigned int seconds) {
         std::cout << "Song title \"" << songTitle << "\" not found." << std::endl;
         return false;
     }
-    Song* song = songBST.getKey(songTitle);
+    Song* song = songBST.BSTGetKey(songTitle);
     if (song->isFavorite()) {
         std::cout << "Song " << songTitle << " is already a favorite." << std::endl;
         return false;
@@ -53,7 +53,7 @@ bool SongManager::remove(const std::string& songTitle) {
         std::cout << "Song title \"" << songTitle << "\" not found." << std::endl;
         return false;
     }
-    Song* key = songBST.getKey(songTitle);
+    Song* key = songBST.BSTGetKey(songTitle);
     songBST.BSTRemoveKey(key);
     songMH.remove(key);
     songDLL.remove(key);

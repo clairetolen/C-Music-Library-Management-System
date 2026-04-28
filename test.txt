@@ -3,15 +3,13 @@ song goodsong "Taylor Swift" 214 Willow
 song 1 AC/DC 180 "Back in Black"
 song 3 "Paul Simon" 999 "Diamonds on the Souls of Her Shoes"
 song 2 "LL Cool J" tooshort "I'm Bad"
-remove “I’m Bad”
+remove "I’m Bad"
 listen "Diamonds on the Souls of Her Shoes" 10
 favorite
 listen "Diamonds on the Souls of her Shoes" 1000
 show_listen_time
 remove "Diamonds on the Souls of Her Shoes"
-
 song 01 "artist 01" 100 "title 01"
 song 02 "artist 02" -1 "title 02"
 song 03 "artist 03" 0 "title 03"
-
 quit
