@@ -21,7 +21,6 @@ void BST::BSTInsertNode(SongNode* node) {
 
     if (BSTSearchKey(node->data->getSongTitle()) != nullptr) {
         //break
-        std::cout << "Song already in song List" << std::endl;
         return;
     }
     while (curr != nullptr) {
@@ -57,7 +56,6 @@ void BST::BSTInsertNode(SongNode* node) {
 void BST::BSTRemoveKey(Song* song) {
     SongNode* key = BSTSearchKey(song->getSongTitle());
     if (key == nullptr) {
-        std::cout << "";
         return;
     }
     BSTRemoveNode(key);
@@ -115,10 +113,16 @@ void BST::BSTRemoveNode(SongNode* node) {
     }
     else {
         // 2 children
+        SongNode* succsesor = node->right;
+        while (succsesor->left != nullptr) {
+            succsesor = succsesor->left;
+        }
+        node->data = succsesor->data;
+        BSTRemoveNode(succsesor);
     }
 }
 
-SongNode* BST::BSTSearchKey(const std::string& title) const {
+BST::SongNode* BST::BSTSearchKey(const std::string& title) const {
     SongNode* curr = root;
     while (curr != nullptr) {
         if (title == curr->data->getSongTitle()) {
@@ -137,4 +141,14 @@ SongNode* BST::BSTSearchKey(const std::string& title) const {
 
 bool BST::BSTContainsKey(const std::string& title) const {
     return BSTSearchKey(title) != nullptr;
+}
+
+Song* BST::BSTGetKey(const std::string& title) const {
+    SongNode* curr = BSTSearchKey(title);
+    if (curr == nullptr) {
+        return nullptr;
+    }
+    else {
+        return curr->data;
+    }
 }

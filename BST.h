@@ -13,6 +13,7 @@ public:
     void BSTInsertKey(Song* song);
     void BSTRemoveKey(Song* song);
     bool BSTContainsKey(const std::string& title) const;
+    Song* BSTGetKey(const std::string& title) const;
 
 private:
     class SongNode {
