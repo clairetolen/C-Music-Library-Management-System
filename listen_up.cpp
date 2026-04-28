@@ -1,6 +1,7 @@
 #include "SongManager.h"
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <string>
 #include <exception>
 #include <vector>
@@ -13,10 +14,22 @@ int main() {
     std::string lineString;
     bool quitStatus = false;
 
+    std::fstream fileStream;
+    fileStream.open("test.txt");
+
     // TODO: test the following codes and remove this
     while (!quitStatus) {
         std::cout << ": ";
-        getline(std::cin, lineString);
+
+        if (fileStream.is_open()) {
+            if (fileStream.eof()) {
+                std::cout << "___E O F___" << std::endl;
+            }
+            std::getline(fileStream, lineString);
+        }
+        else {
+            std::getline(std::cin, lineString);
+        }
 
         auto strList = parser(lineString);
 
@@ -132,6 +145,8 @@ int main() {
             std::cout << "Unknown Input Format." << std::endl;
         }
     }
+
+    fileStream.close();
 
     return 0;
 }
