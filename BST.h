@@ -9,10 +9,10 @@ public:
     BST(const BST& other) = delete;
     BST& operator=(const BST& other) = delete;
 
-    void BSTInsertKey(Song* song);
-    void BSTRemoveKey(Song* song);
-    bool BSTContainsKey(const std::string& title) const;
-    Song* BSTGetKey(const std::string& title) const;
+    void insert(Song* song);
+    void remove(Song* song);
+    bool contain(const std::string& title) const;
+    Song* get(const std::string& title) const;
 
 private:
     class SongNode {
@@ -29,8 +29,8 @@ private:
     SongNode* root;
     unsigned int size;
 
-    void BSTInsertNode(SongNode* node);
-    void BSTRemoveNode(SongNode* node);
-    SongNode* BSTSearchKey(const std::string& title) const;
-    void BSTDeleteTree(SongNode* node);
+    void insertNode(SongNode* node);
+    void removeNode(SongNode* node);
+    SongNode* getNode(const std::string& title) const;
+    void deleteTree(SongNode* node);
 };

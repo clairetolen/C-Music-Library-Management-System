@@ -13,17 +13,17 @@ bool SongManager::song(unsigned int songId, const std::string& artistName, unsig
         return false;
     }
     songMH.insert(songObj);
-    songBST.BSTInsertKey(songObj);
+    songBST.insert(songObj);
     return true;
 }
 
 // TODO: getKey()
 bool SongManager::listen(const std::string& songTitle, unsigned int seconds) {
-    if (!songBST.BSTContainsKey(songTitle)) {
+    if (!songBST.contain(songTitle)) {
         std::cout << "Song title \"" << songTitle << "\" not found." << std::endl;
         return false;
     }
-    Song* song = songBST.BSTGetKey(songTitle);
+    Song* song = songBST.get(songTitle);
     if (song->isFavorite()) {
         std::cout << "Song " << songTitle << " is already a favorite." << std::endl;
         return false;
@@ -49,12 +49,12 @@ bool SongManager::favorite() {
 
 // TODO: getKey()
 bool SongManager::remove(const std::string& songTitle) {
-    if (!songBST.BSTContainsKey(songTitle)) {
+    if (!songBST.contain(songTitle)) {
         std::cout << "Song title \"" << songTitle << "\" not found." << std::endl;
         return false;
     }
-    Song* key = songBST.BSTGetKey(songTitle);
-    songBST.BSTRemoveKey(key);
+    Song* key = songBST.get(songTitle);
+    songBST.remove(key);
     songMH.remove(key);
     songDLL.remove(key);
     return true;

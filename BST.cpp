@@ -4,15 +4,15 @@ BST::BST() : root(nullptr), size(0) {
 }
 
 BST::~BST() {
-    BSTDeleteTree(root);
+    deleteTree(root);
 }
 
-void BST::BSTInsertKey(Song* song) {
+void BST::insert(Song* song) {
     SongNode* key = new SongNode(song);
-    BSTInsertNode(key);
+    insertNode(key);
 }
 
-void BST::BSTInsertNode(SongNode* node) {
+void BST::insertNode(SongNode* node) {
     //check if root =null ptr --> insert at root
 
     if (root == nullptr) {
@@ -23,7 +23,7 @@ void BST::BSTInsertNode(SongNode* node) {
     }
     SongNode* curr = root;
 
-    if (BSTSearchKey(node->data->getSongTitle()) != nullptr) {
+    if (getNode(node->data->getSongTitle()) != nullptr) {
         //break
         return;
     }
@@ -57,16 +57,16 @@ void BST::BSTInsertNode(SongNode* node) {
     }
 }
 
-void BST::BSTRemoveKey(Song* song) {
-    SongNode* key = BSTSearchKey(song->getSongTitle());
+void BST::remove(Song* song) {
+    SongNode* key = getNode(song->getSongTitle());
     if (key == nullptr) {
         return;
     }
-    BSTRemoveNode(key);
+    removeNode(key);
     size--;
 }
 
-void BST::BSTRemoveNode(SongNode* node) {
+void BST::removeNode(SongNode* node) {
     if (node == nullptr) return;
     if (node->left == nullptr && node->right == nullptr) {
         // leaf node
@@ -122,11 +122,11 @@ void BST::BSTRemoveNode(SongNode* node) {
             succsesor = succsesor->left;
         }
         node->data = succsesor->data;
-        BSTRemoveNode(succsesor);
+        removeNode(succsesor);
     }
 }
 
-BST::SongNode* BST::BSTSearchKey(const std::string& title) const {
+BST::SongNode* BST::getNode(const std::string& title) const {
     SongNode* curr = root;
     while (curr != nullptr) {
         if (title == curr->data->getSongTitle()) {
@@ -143,12 +143,12 @@ BST::SongNode* BST::BSTSearchKey(const std::string& title) const {
     return nullptr;
 }
 
-bool BST::BSTContainsKey(const std::string& title) const {
-    return BSTSearchKey(title) != nullptr;
+bool BST::contain(const std::string& title) const {
+    return getNode(title) != nullptr;
 }
 
-Song* BST::BSTGetKey(const std::string& title) const {
-    SongNode* curr = BSTSearchKey(title);
+Song* BST::get(const std::string& title) const {
+    SongNode* curr = getNode(title);
     if (curr == nullptr) {
         return nullptr;
     }
@@ -157,9 +157,9 @@ Song* BST::BSTGetKey(const std::string& title) const {
     }
 }
 
-void BST::BSTDeleteTree(SongNode* node) {
+void BST::deleteTree(SongNode* node) {
     if (node == nullptr) return;
-    BSTDeleteTree(node->left);
-    BSTDeleteTree(node->right);
+    deleteTree(node->left);
+    deleteTree(node->right);
     delete node;
 }
