@@ -1,4 +1,5 @@
 #include "DLL.h"
+#include "Song.h"
 #include <iostream>
 
 DLL::DLL() : head(nullptr), tail(nullptr) {

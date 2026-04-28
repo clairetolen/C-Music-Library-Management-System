@@ -1,129 +1,99 @@
 #include "BST.h"
 
-BST::BST() : root(nullptr), size(0) {
+BST::BST() : root(nullptr) {
 }
 
 BST::~BST() {
     deleteTree(root);
+    root = nullptr;
 }
 
-void BST::insert(Song* song) {
+bool BST::insert(Song* song) {
+    if (song == nullptr) { return false; }
     SongNode* key = new SongNode(song);
     insertNode(key);
+    return true;
 }
 
 void BST::insertNode(SongNode* node) {
-    //check if root =null ptr --> insert at root
-
+    if (node == nullptr) { return; }
+    // check if root =null ptr --> insert at root
     if (root == nullptr) {
         root = node;
         root->parent = nullptr;
-        size++;
         return;
     }
-    SongNode* curr = root;
 
-    if (getNode(node->data->getSongTitle()) != nullptr) {
-        //break
-        return;
-    }
+    // assume no duplicate title
+    SongNode* curr = root;
     while (curr != nullptr) {
-        // some kind of loop
-        //check if curr node > node (being inserted)
+        // check if curr node > node (being inserted)
         if (node->data->getSongTitle() < curr->data->getSongTitle()) {
             //go left by changing curr
             if (curr->left == nullptr) {
                 curr->left = node;
                 node->parent = curr;
-                size++;
                 return;
             }
-            else {
-                curr = curr->left;
-            }
+            curr = curr->left;
         }
-        else if (node->data->getSongTitle() > curr->data->getSongTitle()) {
+        else {
             //go right
             if (curr->right == nullptr) {
                 curr->right = node;
                 node->parent = curr;
-                size++;
                 return;
             }
-            else {
-                curr = curr->right;
-            }
+            curr = curr->right;
         }
     }
 }
 
-void BST::remove(Song* song) {
+bool BST::remove(Song* song) {
     SongNode* key = getNode(song->getSongTitle());
     if (key == nullptr) {
-        return;
+        return false;
     }
     removeNode(key);
-    size--;
+    return true;
 }
 
 void BST::removeNode(SongNode* node) {
-    if (node == nullptr) return;
-    if (node->left == nullptr && node->right == nullptr) {
-        // leaf node
-        if (node == root) {
-            root = nullptr;
+    if (node == nullptr) { return; }
+
+    // Case 1: Internal node with 2 children
+    if (node->left != nullptr && node->right != nullptr) {
+        // Find successor
+        SongNode* successorNode = node->right;
+        while (successorNode->left) {
+            successorNode = successorNode->left;
         }
-        else if (node->parent->left == node) {
-            node->parent->left = nullptr;
-        }
-        else {
-            node->parent->right = nullptr;
-        }
-        delete node;
+
+        // Copy value/data from successorNode to node
+        node->data = successorNode->data;
+
+        // Recursively remove successorNode
+        removeNode(successorNode);
+        return;
     }
-    else if (node->left == nullptr ^ node->right == nullptr) {
-        // 1 child
-        if (node == root) {
-            if (node->right != nullptr) {
-                node->right->parent = nullptr;
-                root = node->right;
-            }
-            else {
-                node->left->parent = nullptr;
-                root = node->left;
-            }
-        }
-        else {
-            if (node->right != nullptr) {
-                node->right->parent = node->parent;
-                if (node->parent->right == node) {
-                    node->parent->right = node->right;
-                }
-                else {
-                    node->parent->left = node->right;
-                }
-            }
-            else {
-                node->left->parent = node->parent;
-                if (node->parent->right == node) {
-                    node->parent->right = node->left;
-                }
-                else {
-                    node->parent->left = node->left;
-                }
-            }
-        }
-        delete node;
+
+    // Case 2: Root node (with 1 or 0 children)
+    if (node == root) {
+        SongNode* child = node->left != nullptr ? node->left : node->right;
+        replaceChild(node, child);
     }
+
+    // Case 3: Internal with left child only
+    else if (node->left != nullptr) {
+        replaceChild(node, node->left);
+    }
+
+    // Case 4: Internal with right child only OR leaf
     else {
-        // 2 children
-        SongNode* succsesor = node->right;
-        while (succsesor->left != nullptr) {
-            succsesor = succsesor->left;
-        }
-        node->data = succsesor->data;
-        removeNode(succsesor);
+        replaceChild(node, node->right);
     }
+
+    delete node;
 }
 
 BST::SongNode* BST::getNode(const std::string& title) const {
@@ -152,9 +122,7 @@ Song* BST::get(const std::string& title) const {
     if (curr == nullptr) {
         return nullptr;
     }
-    else {
-        return curr->data;
-    }
+    return curr->data;
 }
 
 void BST::deleteTree(SongNode* node) {
@@ -162,4 +130,24 @@ void BST::deleteTree(SongNode* node) {
     deleteTree(node->left);
     deleteTree(node->right);
     delete node;
+}
+
+bool BST::replaceChild(SongNode* currentChild, SongNode* newChild) {
+    SongNode* parentNode = currentChild->parent;
+    if (parentNode != nullptr) {
+        if (parentNode->left == currentChild) {
+            parentNode->left = newChild;
+        }
+        else {
+            parentNode->right = newChild;
+        }
+    }
+    else {
+        root = newChild;
+    }
+
+    if (newChild != nullptr) {
+        newChild->parent = parentNode;
+    }
+    return true;
 }

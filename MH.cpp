@@ -3,21 +3,22 @@
 MH::MH() {
 }
 
-void MH::insert(Song* song) {
-    if (song == nullptr) return;
+bool MH::insert(Song* song) {
+    if (song == nullptr) return false;
 
     songs.push_back(song);
     int index = songs.size() - 1;
     song->setHeapIndex(index);
 
     percolateUp(index);
+    return true;
 }
 
-void MH::remove(Song* song) {
-    if (song == nullptr) return;
+bool MH::remove(Song* song) {
+    if (song == nullptr) return false;
 
     int index = song->getHeapIndex();
-    if (!isIndexInRange(index)) { return; }
+    if (!isIndexInRange(index)) { return false; }
 
     swap(index, songs.size() - 1);
     songs.pop_back();
@@ -25,13 +26,15 @@ void MH::remove(Song* song) {
 
     percolateUp(index);
     percolateDown(index);
+    return true;
 }
 
-void MH::update(Song* song) {
-    if (song == nullptr) return;
+bool MH::update(Song* song) {
+    if (song == nullptr) return false;
 
     int index = song->getHeapIndex();
     percolateUp(index);
+    return true;
 }
 
 Song* MH::extractMax() {

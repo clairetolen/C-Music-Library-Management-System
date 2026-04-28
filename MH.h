@@ -6,9 +6,9 @@ class MH {
 public:
     MH();
 
-    void insert(Song* song);
-    void remove(Song* song);
-    void update(Song* song);
+    bool insert(Song* song);
+    bool remove(Song* song);
+    bool update(Song* song);
     Song* extractMax();
 
 private:

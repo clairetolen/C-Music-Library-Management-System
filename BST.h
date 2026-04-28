@@ -9,8 +9,8 @@ public:
     BST(const BST& other) = delete;
     BST& operator=(const BST& other) = delete;
 
-    void insert(Song* song);
-    void remove(Song* song);
+    bool insert(Song* song);
+    bool remove(Song* song);
     bool contain(const std::string& title) const;
     Song* get(const std::string& title) const;
 
@@ -27,10 +27,10 @@ private:
     };
 
     SongNode* root;
-    unsigned int size;
 
     void insertNode(SongNode* node);
     void removeNode(SongNode* node);
+    bool replaceChild(SongNode* node, SongNode* newChild);
     SongNode* getNode(const std::string& title) const;
     void deleteTree(SongNode* node);
 };
