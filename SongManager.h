@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include "Song.h"
 #include "BST.h"
 #include "MH.h"
 #include "DLL.h"
@@ -16,6 +15,8 @@ public:
     bool favorite();
     bool remove(const std::string& songTitle);
     void quit();
+
+    void showAllSongsInfo() const;
 
 private:
     BST songBST;

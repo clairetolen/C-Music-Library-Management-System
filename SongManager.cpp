@@ -29,17 +29,18 @@ bool SongManager::listen(const std::string& songTitle, unsigned int seconds) {
     }
     std::cout << "Listened to " << songTitle << " for " << seconds << " seconds." << std::endl;
     song->incListenTime(seconds);
+    songMH.update(song);
     return true;
 }
 
 void SongManager::show_listen_time() const{
-    songDLL.printAllSongs();
+    songDLL.printAllSongsListenTime();
 }
 
 bool SongManager::favorite() {
     Song* song = songMH.extractMax();
     if (song == nullptr) {
-        std::cout << "No song found." << std::endl;
+        std::cout << "No songs can be favorited." << std::endl;
         return false;
     }
     song->setFavorite(true);
@@ -60,4 +61,8 @@ bool SongManager::remove(const std::string& songTitle) {
 
 void SongManager::quit() {
     std::cout << "Exiting ..." << std::endl;
+}
+
+void SongManager::showAllSongsInfo() const {
+    songDLL.printAllSongsInfo();
 }

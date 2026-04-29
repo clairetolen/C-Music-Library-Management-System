@@ -61,15 +61,17 @@ song 17 "Muse" 245 Supermassive extrafield
 # --- Listen: basic usage ---
 listen "Boy in the Bubble" 100
 listen "Boy in the Bubble" 193
-listen "The Real Slim Shady" 3920
+listen "The Real Slim Shady" 392000
 listen "This Must Be the Place (Naive Melody)" 32
 listen "Diamonds on the Souls of Her Shoes" 109
 
 # --- Favorite: picks most-listened non-favorite ---
+info
 favorite
+info
 
 # --- Listen to a song already marked as favorite ---
-listen "Diamonds on the Souls of Her Shoes" 1000
+listen "The Real Slim Shady" 1000
 
 # --- Listen: song that does not exist ---
 listen "Bohemian Rhapsody" 50
@@ -104,7 +106,7 @@ song 2 "Queen" 354 "Bohemian Rhapsody"
 listen "Opalite" 0
 
 # --- Listen with very large seconds value ---
-listen "Opalite" 999999
+listen "Opalite" 9999999999999999999
 
 # --- favorite when all songs are already favorites ---
 favorite
@@ -122,4 +124,4 @@ favorite
 show_listen_time
 
 # --- Quit ---
-quit
+info

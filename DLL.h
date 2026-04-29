@@ -10,7 +10,9 @@ public:
 
     bool insert(Song* song); // Insert In Order
     bool remove(Song* song);
-    void printAllSongs() const;
+    void printAllSongsListenTime() const;
+
+    void printAllSongsInfo() const;
 
 private:
     DLLNode* head;

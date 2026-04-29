@@ -3,10 +3,11 @@
 #include <sstream>
 #include <fstream>
 #include <string>
-#include <exception>
 #include <vector>
+#include <exception>
+#include <cctype>
 
-bool isValidUInt(const std::string& input);
+bool isValidUInt(const std::string& field, const std::string& input);
 std::vector<std::string> parser(const std::string& inputLine);
 
 int main() {
@@ -22,22 +23,20 @@ int main() {
         std::cout << std::endl;
         std::cout << "> ";
 
-        if (fileStream.is_open()) {
-            if (fileStream.eof()) {
-                std::cout << "___E O F___" << std::endl;
-            }
-            std::getline(fileStream, lineString);
+        if (fileStream.is_open() && std::getline(fileStream, lineString)) {
+            std::cout << lineString << std::endl;
         }
         else {
             std::getline(std::cin, lineString);
         }
 
-        std::cout << lineString << std::endl;
-
         auto strList = parser(lineString);
+        if (strList.empty()) {
+            continue;
+        }
 
         if (strList.empty()) {
-            std::cout << "error flag: empty input" << std::endl;
+            std::cout << "error: invalid input format" << std::endl;
             continue;
         }
 
@@ -47,11 +46,18 @@ int main() {
             songLib.quit();
             quitStatus = true;
         }
+        else if (action == "info") {
+            songLib.showAllSongsInfo();
+        }
         else if (action == "song") {
             std::string songId, duration;
             std::string artist, title;
             if (strList.size() < 5) {
-                std::cout << "error flag: missing parameters" << std::endl;
+                std::cout << "error: missing arguments" << std::endl;
+                continue;
+            }
+            if (strList.size() > 5) {
+                std::cout << "error: extra arguments" << std::endl;
                 continue;
             }
 
@@ -60,12 +66,10 @@ int main() {
             duration = strList.at(3);
             title = strList.at(4);
             // songId & duration must be unsigned int
-            if (!isValidUInt(songId)) {
-                std::cout << "Song id " << songId << " is not an integer" << std::endl;
+            if (!isValidUInt("Song ID", songId)) {
                 continue;
             }
-            if (!isValidUInt(duration)) {
-                std::cout << "Duration " << duration << " is not an integer" << std::endl;
+            if (!isValidUInt("Duration", duration)) {
                 continue;
             }
             songLib.song(std::stoul(songId), artist, std::stoul(duration), title);
@@ -73,7 +77,11 @@ int main() {
         else if (action == "remove") {
             std::string title;
             if (strList.size() < 2) {
-                std::cout << "error flag: missing parameters" << std::endl;
+                std::cout << "error: missing arguments" << std::endl;
+                continue;
+            }
+            if (strList.size() > 2) {
+                std::cout << "error: extra arguments" << std::endl;
                 continue;
             }
 
@@ -84,14 +92,17 @@ int main() {
             std::string title;
             std::string seconds;
             if (strList.size() < 3) {
-                std::cout << "error flag: missing parameters" << std::endl;
+                std::cout << "error: missing arguments" << std::endl;
+                continue;
+            }
+            if (strList.size() > 3) {
+                std::cout << "error: extra arguments" << std::endl;
                 continue;
             }
 
             title = strList.at(1);
             seconds = strList.at(2);
-            if (!isValidUInt(seconds)) {
-                std::cout << "Seconds " << seconds << " is not an integer" << std::endl;
+            if (!isValidUInt("Seconds", seconds)) {
                 continue;
             }
             songLib.listen(title, std::stoul(seconds));
@@ -110,7 +121,7 @@ int main() {
             std::cout << "\t\tAdd a song to the library.\n";
             std::cout << "\t\tsong_id\t: non-negative integer ID\n";
             std::cout << "\t\tartist\t: artist name; use double quotes if it contains spaces\n";
-            std::cout << "\t\tduration\t: length in seconds\n";
+            std::cout << "\t\tduration: length in seconds\n";
             std::cout << "\t\ttitle\t: song title; use double quotes if it contains spaces\n";
             std::cout << std::endl;
 
@@ -140,6 +151,10 @@ int main() {
             std::cout << "\t\tExit the program.\n";
             std::cout << std::endl;
 
+            std::cout << "\tinfo\n";
+            std::cout << "\t\tDisplay the information of all songs.\n";
+            std::cout << std::endl;
+
             std::cout << "\thelp\n";
             std::cout << "\t\tShow this help page.\n";
             std::cout << std::endl;
@@ -149,21 +164,21 @@ int main() {
         }
     }
 
-    fileStream.close();
-
     return 0;
 }
 
-bool isValidUInt(const std::string& input) {
-    try {
-        int n = std::stoi(input);
-        if (n < 0) {
+bool isValidUInt(const std::string& field, const std::string& input) {
+    for (char c : input) {
+        if (!std::isdigit(c)) {
+            std::cout << field << " " << input << " is not a non-negative integer." << std::endl;
             return false;
         }
     }
+    try {
+        std::stoi(input);
+    }
     catch (std::exception& e) {
-        // TODO: remove error message
-        std::cout << e.what() << std::endl;
+        std::cout << field << " " << input << " is too large." << std::endl;
         return false;
     }
     return true;
@@ -178,7 +193,7 @@ std::vector<std::string> parser(const std::string& inputLine) {
     while (inputSS.get(c)) {
         // skip white spaces
         if (c == ' ') continue;
-        // discard commented line that start with#
+        // discard commented line that start with #
         if (c == '#') {
             std::getline(inputSS, str);
             continue;

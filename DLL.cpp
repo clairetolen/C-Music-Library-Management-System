@@ -1,6 +1,7 @@
 #include "DLL.h"
 #include "Song.h"
 #include <iostream>
+#include <iomanip>
 
 DLL::DLL() : head(nullptr), tail(nullptr) {
 }
@@ -49,7 +50,7 @@ bool DLL::insert(Song* song) {
     while (current != nullptr) {
         // case 3: duplicate id
         if (song->getSongId() == current->data->getSongId()) {
-            std::cout << "Song id " << current->data->getSongId() << " already used for " << current->data->
+            std::cout << "Song ID " << current->data->getSongId() << " already used for " << current->data->
                 getSongTitle() <<
                 " by " << current->data->getArtistName() << "." << std::endl;
             return false;
@@ -114,12 +115,27 @@ bool DLL::remove(Song* song) {
     return true;
 }
 
-void DLL::printAllSongs() const {
+void DLL::printAllSongsListenTime() const {
     DLLNode* current = head;
     while (current != nullptr) {
-        std::cout << current->data->getSongId() << " " <<
-            current->data->getSongTitle() << " has been listened to for " <<
-            current->data->getDuration() << " seconds."
+        Song* song = current->data;
+        std::cout << song->getSongId() << " " <<
+            song->getSongTitle() << " has been listened to for " <<
+            song->getTimeListened() << " seconds."
+            << std::endl;
+        current = current->next;
+    }
+}
+
+void DLL::printAllSongsInfo() const {
+    DLLNode* current = head;
+    while (current != nullptr) {
+        Song* song = current->data;
+        std::cout << std::left <<
+            " ID: " << std::setw(4) << song->getSongId() << " Artist: " << std::setw(20) << song->getArtistName() << " Duration: "
+            << std::setw(5) << song->getDuration() << " Title: " << std::setw(30) << song->getSongTitle() << " Favorite: "
+            << std::setw(2) << song->isFavorite() << " Listened: " << std::setw(4) << song->getTimeListened()
+            << " Heap_idx: " << std::setw(2) << song->getHeapIndex()
             << std::endl;
         current = current->next;
     }
