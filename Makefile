@@ -4,9 +4,9 @@
 # User data (add your details here)
 COURSE = cs310
 SEMESTER = spring2026
-LASTNAME =
-GITHUB_ID =
-BU_USERID =
+LASTNAMES = Genc_Tolentino_Liang
+# GITHUB_ID =
+# BU_USERID =
 
 # CP settings (change this as per the CP you are working on)
 # add name of the exe file
@@ -31,7 +31,7 @@ BIN_DIR = bin
 TARGET = $(BIN_DIR)/$(EXE)
 
 # tar name
-TAR_NAME = CP$(CP_NUMBER)_$(LASTNAME)_$(BU_USERID)_$(GITHUB_ID).tar.gz
+TAR_NAME = CP$(CP_NUMBER)_team_$(LASTNAMES).tar.gz
 
 # use all files
 ifeq ($(strip $(CPP_FILES)),)
