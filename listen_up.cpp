@@ -178,6 +178,11 @@ std::vector<std::string> parser(const std::string& inputLine) {
     while (inputSS.get(c)) {
         // skip white spaces
         if (c == ' ') continue;
+        // discard commented line that start with#
+        if (c == '#') {
+            std::getline(inputSS, str);
+            continue;
+        }
         // extract quoted contents
         if (c == '\"') {
             str.clear();

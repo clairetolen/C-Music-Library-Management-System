@@ -65,7 +65,7 @@ void MH::percolateDown(int index) {
         return;
     }
 
-    int childIndex = 2 * index + 1;
+    unsigned int childIndex = 2 * index + 1;
     unsigned int value = songs[index]->getTimeListened();
 
     while (childIndex < songs.size()) {
@@ -73,7 +73,7 @@ void MH::percolateDown(int index) {
         unsigned int maxValue = value;
         int maxIndex = -1;
         // check left then right child
-        for (int i = 0; i < 2 && i + childIndex < songs.size(); i++) {
+        for (unsigned int i = 0; i < 2 && i + childIndex < songs.size(); i++) {
             if (songs[i + childIndex]->getTimeListened() > maxValue) {
                 maxValue = songs[i + childIndex]->getTimeListened();
                 maxIndex = i + childIndex;
@@ -100,5 +100,5 @@ void MH::swap(int index1, int index2) {
 }
 
 bool MH::isIndexInRange(int index) const {
-    return index >= 0 && index < songs.size();
+    return index >= 0 && index < (int) songs.size();
 }

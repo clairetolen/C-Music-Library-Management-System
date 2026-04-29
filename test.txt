@@ -1,15 +1,125 @@
+# --- Basic valid song additions ---
 song 1 "Taylor Swift" 235 Opalite
-song goodsong "Taylor Swift" 214 Willow
+song 2 "LL Cool J" 214 "I'm Bad"
+song 3 "Paul Simon" 293 "Boy in the Bubble"
+song 25 Eminem 3920 "The Real Slim Shady"
+song 42 "Talking Heads" 32 "This Must Be the Place (Naive Melody)"
+song 10 "Paul Simon" 180 "Diamonds on the Souls of Her Shoes"
+
+# --- Edge case: duplicate song id ---
 song 1 AC/DC 180 "Back in Black"
-song 3 "Paul Simon" 999 "Diamonds on the Souls of Her Shoes"
-song 2 "LL Cool J" tooshort "I'm Bad"
-remove "I’m Bad"
-listen "Diamonds on the Souls of Her Shoes" 10
+
+# --- Edge case: non-integer song id ---
+song goodsong "Taylor Swift" 214 Willow
+
+# --- Edge case: non-integer duration ---
+song 5 "LL Cool J" tooshort "Rock the Bells"
+
+# --- Edge case: song id that is a float (not integer) ---
+song 3.5 "Madonna" 200 "Like a Prayer"
+
+# --- Edge case: negative song id (integer but unusual) ---
+song -1 "The Beatles" 180 "Hey Jude"
+
+# --- Edge case: song id zero ---
+song 0 "David Bowie" 240 "Heroes"
+
+# --- Edge case: very large song id ---
+song 999999 "Led Zeppelin" 482 "Stairway to Heaven"
+
+# --- Edge case: duration of 0 seconds ---
+song 6 "Radiohead" 0 "Creep"
+
+# --- Edge case: duration of exactly 60 seconds (boundary: 1:00) ---
+song 7 "Nirvana" 60 "Smells Like Teen Spirit"
+
+# --- Edge case: duration of 59 seconds (boundary: 0:59) ---
+song 8 "Oasis" 59 "Wonderwall"
+
+# --- Edge case: duration of 3600 seconds (1 hour) ---
+song 9 "Pink Floyd" 3600 "Echoes"
+
+# --- Edge case: artist name with special characters ---
+song 11 "AC/DC" 210 "Thunderstruck"
+song 12 "Guns N' Roses" 274 "November Rain"
+
+# --- Edge case: title with special characters ---
+song 13 "Panic! at the Disco" 199 "I Write Sins Not Tragedies"
+
+# --- Edge case: single-word artist (no quotes) ---
+song 14 Adele 295 "Rolling in the Deep"
+
+# --- Edge case: title with numbers ---
+song 15 "Daft Punk" 254 "Get Lucky 2013"
+
+# --- Edge case: missing fields (too few arguments) ---
+song 16 "Coldplay"
+
+# --- Edge case: too many fields (extra argument) ---
+song 17 "Muse" 245 Supermassive extrafield
+
+# --- Listen: basic usage ---
+listen "Boy in the Bubble" 100
+listen "Boy in the Bubble" 193
+listen "The Real Slim Shady" 3920
+listen "This Must Be the Place (Naive Melody)" 32
+listen "Diamonds on the Souls of Her Shoes" 109
+
+# --- Favorite: picks most-listened non-favorite ---
 favorite
-listen "Diamonds on the Souls of her Shoes" 1000
+
+# --- Listen to a song already marked as favorite ---
+listen "Diamonds on the Souls of Her Shoes" 1000
+
+# --- Listen: song that does not exist ---
+listen "Bohemian Rhapsody" 50
+
+# --- Favorite: called when no songs have any listens yet (edge case) ---
+# (all remaining songs have 0 listen time, ties go to... lowest id?)
+favorite
+
+# --- show_listen_time before any removals ---
 show_listen_time
-remove "Diamonds on the Souls of Her Shoes"
-song 01 "artist 01" 100 "title 01"
-song 02 "artist 02" -1 "title 02"
-song 03 "artist 03" 0 "title 03"
+
+# --- Remove: existing song by title ---
+remove "I'm Bad"
+
+# --- Remove: song with special characters in title ---
+remove "Guns N' Roses"
+
+# --- Remove: title that does not exist ---
+remove "Bohemian Rhapsody"
+
+# --- Remove: title that was already removed ---
+remove "I'm Bad"
+
+# --- show_listen_time after removals ---
+show_listen_time
+
+# --- Add a new song with previously used (now freed) id ---
+# Behavior depends on implementation: some may allow reuse after removal
+song 2 "Queen" 354 "Bohemian Rhapsody"
+
+# --- Listen with 0 seconds (edge case: no-op or valid?) ---
+listen "Opalite" 0
+
+# --- Listen with very large seconds value ---
+listen "Opalite" 999999
+
+# --- favorite when all songs are already favorites ---
+favorite
+favorite
+favorite
+favorite
+favorite
+favorite
+favorite
+favorite
+favorite
+favorite
+
+# --- show_listen_time with all favorites added ---
+show_listen_time
+
+# --- Quit ---
 quit
