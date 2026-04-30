@@ -125,3 +125,4 @@ show_listen_time
 
 # --- Quit ---
 info
+quit
