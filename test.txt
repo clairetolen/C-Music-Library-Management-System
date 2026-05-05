@@ -119,6 +119,12 @@ favorite
 favorite
 favorite
 favorite
+favorite
+favorite
+favorite
+favorite
+favorite
+favorite
 
 # --- show_listen_time with all favorites added ---
 show_listen_time
