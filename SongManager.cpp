@@ -7,7 +7,7 @@ SongManager::SongManager() {
 bool SongManager::song(unsigned int songId, const std::string& artistName, unsigned int duration,
                        const std::string& songTitle) {
     Song* songObj = new Song(songId, artistName, duration, songTitle);
-    if (!songDLL.insert(songObj) || songBST.contain(songTitle)) {
+    if (songBST.contain(songTitle) || !songDLL.insert(songObj)) {
         // id have been used for other song
         delete songObj;
         return false;
