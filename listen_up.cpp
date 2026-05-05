@@ -18,7 +18,6 @@ int main() {
     std::fstream fileStream;
     fileStream.open("test.txt");
 
-    // TODO: test the following codes and remove this
     while (!quitStatus) {
         std::cout << std::endl;
         std::cout << "> ";

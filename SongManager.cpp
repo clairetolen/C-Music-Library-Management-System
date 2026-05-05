@@ -44,6 +44,7 @@ bool SongManager::favorite() {
         return false;
     }
     song->setFavorite(true);
+    std::cout << "Song " << song->getSongTitle() << " added to list of favorites (Listened for " << song->getTimeListened() << " seconds)" << std::endl;
     return true;
 }
 
